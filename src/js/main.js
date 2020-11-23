@@ -1,14 +1,31 @@
-let num = 266219;
-let arr = String(num).split(''); // Меняем тип на стринг для использования метода и разбиваем на массив
+let lang = prompt('Выберите язык(ru или en)');
 
-let res = arr[0]; // Обозначаем переменную для того чтобы видеть получить ответ из цикла
-for(let i = 1; i < arr.length; i++) {
-    res *= arr[i];
+
+if(lang === 'ru') {
+    console.log('Пондельник, вторник, среда, четверг, пятница, суббота, воскресенье');
+} else if(lang === 'en') {
+    console.log('Monday, tuesday, wednesday, thursday, friday, saturday, sunday');
+}else {
+    console.log('Кажется вы выбрали неверный язык!');
 }
 
-let pow = res ** 3; // Возведение в степень
-console.log(pow);
+switch(lang) {
+    case 'ru': 
+        console.log('Пондельник, вторник, среда, четверг, пятница, суббота, воскресенье');
+        break;
+    case 'en':
+        console.log('Monday, tuesday, wednesday, thursday, friday, saturday, sunday');
+        break;
+    default:
+        console.log('Кажется вы выбрали неверный язык!');
+}
 
-let firstTwoSymbol = String(pow).split('').slice(0, 2).join(''); // Меняем тип на стринг для использования метода разбиваем на массив выдёргиваем два первых элемента и соединяем
+let arr = [];
+arr['ru'] = ['Пондельник, вторник, среда, четверг, пятница, суббота, воскресенье'];
+arr['en'] = ['Monday, tuesday, wednesday, thursday, friday, saturday, sunday'];
+arr[null] = ['Кажется вы выбрали неверный язык!'];
+console.log(arr[lang].join(''));  // join для того чтобы получить строку, а не массив
 
-console.log(Number(firstTwoSymbol))
+let namePerson = prompt('Введите имя');
+let res = namePerson.toLowerCase() === 'артём' ? 'Директор' : namePerson.toLowerCase() === 'максим' ? 'Преподаватель' : 'Студент';  // Исключил возможную ошибку из-за регистра
+console.log(res);
