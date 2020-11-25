@@ -1,23 +1,28 @@
-let argument = '';
+let arr = [];
 
-function example(arg) {
-    if(typeof arg === 'string') { // Проверка на то является ли это строкой или нет
-        console.log('Переданный аргумент является строкой!');
-        let stringWithoutSpaces = arg.trim(); // Уберём пробелы в начале и в конце
-        console.log('Строка без пробелов в начале и в конце:', stringWithoutSpaces);
-        len(stringWithoutSpaces); 
-    }else {
-        console.log('Видимо переданный аргумент не является строкой!');
+arr[0] = '223';
+arr[1] = '343';
+arr[2] = '654';
+arr[3] = '423';
+arr[4] = '64564';
+arr[5] = '4234';
+arr[6] = '2343';
+
+for(let i = 0; i < 7; i++) {
+    if(arr[i][0] === '2' || arr[i][0] === '4'){
+        console.log(arr[i]);
     }
 }
 
-function len(arg) {
-    if(arg.length > 30) {
-        let newString = arg.split('').slice(0, 30).join(''); // Преобразуем в массив вырежем из массива 30 символов(slice не учитывает последний элемент поэтому до 30) и соеденим в строку 
-        console.log(newString + '...'); // добавим многоточие к строке
-    }else {
-        console.log(arg);
+for(let i = 1; i < 101; i++) {
+    let item = 0;
+    for(let j = 1; j < 101; j++){
+        if(i % j == 0){
+            item += 1;
+        }
     }
+    if(item <= 2) {
+        console.log(`${i} Делитель этого числа: 1 и ${i}`);
+        item = 0;
+    } 
 }
-
-example(argument);
