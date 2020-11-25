@@ -1,31 +1,23 @@
-let lang = prompt('Выберите язык(ru или en)');
+let argument = '';
 
-
-if(lang === 'ru') {
-    console.log('Пондельник, вторник, среда, четверг, пятница, суббота, воскресенье');
-} else if(lang === 'en') {
-    console.log('Monday, tuesday, wednesday, thursday, friday, saturday, sunday');
-}else {
-    console.log('Кажется вы выбрали неверный язык!');
+function example(arg) {
+    if(typeof arg === 'string') { // Проверка на то является ли это строкой или нет
+        console.log('Переданный аргумент является строкой!');
+        let stringWithoutSpaces = arg.trim(); // Уберём пробелы в начале и в конце
+        console.log('Строка без пробелов в начале и в конце:', stringWithoutSpaces);
+        len(stringWithoutSpaces); 
+    }else {
+        console.log('Видимо переданный аргумент не является строкой!');
+    }
 }
 
-switch(lang) {
-    case 'ru': 
-        console.log('Пондельник, вторник, среда, четверг, пятница, суббота, воскресенье');
-        break;
-    case 'en':
-        console.log('Monday, tuesday, wednesday, thursday, friday, saturday, sunday');
-        break;
-    default:
-        console.log('Кажется вы выбрали неверный язык!');
+function len(arg) {
+    if(arg.length > 30) {
+        let newString = arg.split('').slice(0, 30).join(''); // Преобразуем в массив вырежем из массива 30 символов(slice не учитывает последний элемент поэтому до 30) и соеденим в строку 
+        console.log(newString + '...'); // добавим многоточие к строке
+    }else {
+        console.log(arg);
+    }
 }
 
-let arr = [];
-arr['ru'] = ['Пондельник, вторник, среда, четверг, пятница, суббота, воскресенье'];
-arr['en'] = ['Monday, tuesday, wednesday, thursday, friday, saturday, sunday'];
-arr[null] = ['Кажется вы выбрали неверный язык!'];
-console.log(arr[lang].join(''));  // join для того чтобы получить строку, а не массив
-
-let namePerson = prompt('Введите имя');
-let res = namePerson.toLowerCase() === 'артём' ? 'Директор' : namePerson.toLowerCase() === 'максим' ? 'Преподаватель' : 'Студент';  // Исключил возможную ошибку из-за регистра
-console.log(res);
+example(argument);
