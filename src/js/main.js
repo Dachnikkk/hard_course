@@ -8,7 +8,7 @@ function promo () {
         start();
         function start(){
             let count = 10;
-            let gameNumber = Math.floor(Math.random() * 100);
+            let gameNumber = Math.floor(Math.random() * 99 + 1);
             let userNumber = +prompt(`Угадай число от 1 до 100, осталось попыток ${count}`);
             function game(){
                 function isNumber(n) { // проверка на число это или нет
@@ -23,6 +23,7 @@ function promo () {
                     promo();
                 }else if(userNumber > gameNumber){
                     count--;
+                    console.log(userNumber);
                     counter(count, 'меньше');
                 }else if(userNumber < gameNumber){
                     count--;
@@ -42,9 +43,9 @@ function promo () {
                     }
                 }
 
-                function counter(count){
+                function counter(count, value){
                     if(count > 0) {
-                        comparison('меньше', count);
+                        comparison(value, count);
                     }else {
                         let confirmedEnd = confirm('Попытки закончились, хотите сыграть еще?')
                         if(confirmedEnd === false) {
