@@ -1,28 +1,65 @@
-let arr = [];
+function promo () {
+    alert('Добрый день, вы попали на игрового бота проводящего игру "Загадывание случайного числа от 1 до 100".');
+    let con = confirm('Хотите сыграть в игру "Загадывание случайного числа от 1 до 100"?');
+    if(con === false){
+        alert('Хорошо! До скорых встреч!');
+        promo();
+    }else{
+        start();
+        function start(){
+            let count = 10;
+            let gameNumber = Math.floor(Math.random() * 100);
+            let userNumber = +prompt(`Угадай число от 1 до 100, осталось попыток ${count}`);
+            function game(){
+                function isNumber(n) { // проверка на число это или нет
+                    return !isNaN(parseFloat(n)) && isFinite(n);
+                }
+                if(!isNumber(userNumber)){
+                    userNumber = +prompt("Введи число!");
+                    game();
+                }
+                if(userNumber === 0) {
+                    alert(`Игра окончена!`);
+                    promo();
+                }else if(userNumber > gameNumber){
+                    count--;
+                    counter(count, 'меньше');
+                }else if(userNumber < gameNumber){
+                    count--;
+                    counter(count, 'больше');
+                }else if(userNumber === gameNumber){
+                    alert('Поздравляю, Вы угадали!!!');
+                    start();
+                }
+                function comparison(value ) {
+                    confirmedGame = confirm(`Загаданное число ${value}, продолжим?`);
+                    if(confirmedGame === true){
+                        userNumber = +prompt(`Попробуй угадать ещё раз число от 1 до 100. Осталось попыток ${count}`);
+                        game();
+                    }else{
+                        alert(`Число которое я загадал ${gameNumber}, я огорчён что ты не попытался угадать!`);
+                        promo();
+                    }
+                }
 
-arr[0] = '223';
-arr[1] = '343';
-arr[2] = '654';
-arr[3] = '423';
-arr[4] = '64564';
-arr[5] = '4234';
-arr[6] = '2343';
+                function counter(count){
+                    if(count > 0) {
+                        comparison('меньше', count);
+                    }else {
+                        let confirmedEnd = confirm('Попытки закончились, хотите сыграть еще?')
+                        if(confirmedEnd === false) {
+                            promo();
+                        }else if(confirmedEnd === true) {
+                            start();
+                        } 
 
-for(let i = 0; i < 7; i++) {
-    if(arr[i][0] === '2' || arr[i][0] === '4'){
-        console.log(arr[i]);
+                    }
+                }
+            }
+            game();
+        } 
     }
 }
 
-for(let i = 1; i < 101; i++) {
-    let item = 0;
-    for(let j = 1; j < 101; j++){
-        if(i % j == 0){
-            item += 1;
-        }
-    }
-    if(item <= 2) {
-        console.log(`${i} Делитель этого числа: 1 и ${i}`);
-        item = 0;
-    } 
-}
+promo();
+
