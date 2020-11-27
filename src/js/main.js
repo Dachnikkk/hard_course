@@ -9,33 +9,32 @@ function promo () {
         function start(){
             let count = 10;
             let gameNumber = Math.floor(Math.random() * 99 + 1);
-            let userNumber = +prompt(`Угадай число от 1 до 100, осталось попыток ${count}`);
+            let userNumber = prompt(`Угадай число от 1 до 100, осталось попыток ${count}`);
             function game(){
                 function isNumber(n) { // проверка на число это или нет
                     return !isNaN(parseFloat(n)) && isFinite(n);
                 }
-                if(!isNumber(userNumber)){
-                    userNumber = +prompt("Введи число!");
+                if(userNumber === null){
+                    alert('Игра окончена!');
+                    return;
+                }else if(!isNumber(userNumber)){
+                    userNumber = prompt(`Введи число!`);
                     game();
                 }
-                if(userNumber === 0) {
-                    alert(`Игра окончена!`);
-                    promo();
-                }else if(userNumber > gameNumber){
+                if(+userNumber > +gameNumber){
                     count--;
-                    console.log(userNumber);
                     counter(count, 'меньше');
-                }else if(userNumber < gameNumber){
+                }else if(+userNumber < +gameNumber){
                     count--;
                     counter(count, 'больше');
-                }else if(userNumber === gameNumber){
+                }else if(+userNumber === +gameNumber){
                     alert('Поздравляю, Вы угадали!!!');
                     start();
                 }
                 function comparison(value ) {
                     confirmedGame = confirm(`Загаданное число ${value}, продолжим?`);
                     if(confirmedGame === true){
-                        userNumber = +prompt(`Попробуй угадать ещё раз число от 1 до 100. Осталось попыток ${count}`);
+                        userNumber = prompt(`Попробуй угадать ещё раз число от 1 до 100. Осталось попыток ${count}`);
                         game();
                     }else{
                         alert(`Число которое я загадал ${gameNumber}, я огорчён что ты не попытался угадать!`);
