@@ -1,33 +1,51 @@
-let week = ['Понедельник', 'Вторник', 'Среда','Четверг','Пятница','Суббота','Воскресенье'];
-let dateArr = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда','Четверг','Пятница','Суббота']; // заведём массив Date
+let hourArr = ["час", 'часа', "часов"];
+let minutesArr = ["минута", 'минуты', 'минут'];
+let secondArr = ['секунда', 'секунды', 'секунд']
 let date = new Date;
 let today = date.getDay(); //запишем сегодняшний день
-const ul = document.querySelector('ul');
-week.forEach((item, i) => {
-    createLi(item);
-    if(item === dateArr[today]) { // для нахождения сегодняшнего дня в нашей неделе мы перебором найдём в нашей неделе тот день недели который является today
-        custom(item, 'bold');
-    }
-    if(i > 4){
-        custom(item, 'italic');
-    }
-    delCustom(item); // зачистка промежуточных классов
-})
+const ol = document.querySelector('ol');
+let options = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    weekday: 'long',
+    timezone: 'UTC',
+};
 
-function createLi(item) { // создание элемента списка
-    const li = document.createElement('li');
-    li.textContent = item;
-    li.classList.add(item); // добавим промежуточный класс для того чтобы в функции custom найти нужный нам элемент и записать в него нужный нам класс
-    ul.appendChild(li);
+let a = date.toLocaleString("ru", options);
+let b = date.toLocaleString("ru");
+yearEnd();
+
+let hour = date.getHours();
+let minutes = date.getMinutes();
+let seconds = date.getSeconds();
+
+function yearEnd(){ // функция замены г. на года
+    let arr = a.split('');
+    arr.splice(arr.length - 2, 2, 'года');
+    a = arr.join('');
 }
 
-function custom(item, value) { // функция добавления класса
-    let element = document.querySelector(`.${item}`); 
-    element.classList.add(value);
+function declOfNum(n, textForm) {   // склонения
+    n = Math.abs(n) % 100; let n1 = n % 10;
+    if (n > 10 && n < 20) { return textForm[2]; }
+    if (n1 > 1 && n1 < 5) { return textForm[1]; }
+    if (n1 == 1) { return textForm[0]; }
+    return textForm[2];
 }
 
-function delCustom(item) { // функция зачистки промежуточных классов
-    let element = document.querySelector(`.${item}`);
-    element.classList.remove(item);
+let aString = `Сегодня ${a}, ${hour} ${declOfNum(hour, hourArr)} ${minutes} ${declOfNum(minutes, minutesArr)} ${seconds} ${declOfNum(seconds, secondArr)}`;
+let bString = b.split(', ').join(' - ')
+console.log(bString);
+
+createP(aString);
+createP(bString);
+function createP(value) {
+    const p = document.createElement('p');
+    p.textContent = value;
+    ol.appendChild(p);
 }
+
+setInterval(window.location.reload(), 1000)
+
 
