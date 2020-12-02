@@ -2,8 +2,8 @@ let hourArr = ["час", 'часа', "часов"];
 let minutesArr = ["минута", 'минуты', 'минут'];
 let secondArr = ['секунда', 'секунды', 'секунд']
 let date = new Date;
-let today = date.getDay(); //запишем сегодняшний день
 const ol = document.querySelector('ol');
+
 let options = {
     year: 'numeric',
     month: 'long',
@@ -16,9 +16,12 @@ let a = date.toLocaleString("ru", options);
 let b = date.toLocaleString("ru");
 yearEnd();
 
-let hour = date.getHours();
-let minutes = date.getMinutes();
-let seconds = date.getSeconds();
+let time = { 
+    hour: date.getHours(),
+    minutes: date.getMinutes(),
+    seconds: date.getSeconds(),
+}
+
 
 function yearEnd(){ // функция замены г. на года
     let arr = a.split('');
@@ -34,18 +37,38 @@ function declOfNum(n, textForm) {   // склонения
     return textForm[2];
 }
 
-let aString = `Сегодня ${a}, ${hour} ${declOfNum(hour, hourArr)} ${minutes} ${declOfNum(minutes, minutesArr)} ${seconds} ${declOfNum(seconds, secondArr)}`;
+let aString = `Сегодня ${a}, ${time.hour} ${declOfNum(time.hour, hourArr)} ${time.minutes} ${declOfNum(time.minutes, minutesArr)} ${time.seconds} ${declOfNum(time.seconds, secondArr)}`;
 let bString = b.split(', ').join(' - ')
-console.log(bString);
 
 createP(aString);
 createP(bString);
+
 function createP(value) {
     const p = document.createElement('p');
     p.textContent = value;
     ol.appendChild(p);
 }
 
-setInterval(window.location.reload(), 1000)
+setInterval(function() {
+    newTime();
+    let a = date.toLocaleString("ru", options);
+    let b = date.toLocaleString("ru");
+    
+	let aString = `Сегодня ${a}, ${time.hour} ${declOfNum(time.hour, hourArr)} ${time.minutes} ${declOfNum(time.minutes, minutesArr)} ${time.seconds} ${declOfNum(time.seconds, secondArr)}`;
+    let bString = b.split(', ').join(' - ');
+    replaceP(aString, 0);
+    replaceP(bString, 1);
 
+}, 1000);
 
+function replaceP(value, i) { // замена текста на новый
+    const p = document.getElementsByTagName('p')[i];
+    console.log(p);
+    p.textContent = value;
+}
+
+function newTime(){ // Функция которая должна записать новое время
+    time.hour = date.getHours();
+    time.minutes = date.getMinutes();
+    time.seconds = date.getSeconds();
+}
