@@ -1,4 +1,14 @@
-.button{
-    margin-left: 10px;
-    margin-bottom: 10px;
-}
+body {
+    background: #8b0167;
+  }
+  
+  button {
+    height: 100px;
+    width: 300px;
+  }
+  
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
